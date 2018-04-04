@@ -1,7 +1,7 @@
 ---
 # tasks file for simplesamlphp
 
-############## Install Apache, PHP and packages required by PHP ###############
+############# Install Apache2, PHP and packages required by PHP ###############
 
 - name: Install Apache2, PHP, PHP extensions and other necessary packages
   apt:
@@ -24,6 +24,7 @@
     - php-xml
     - php-curl
     - composer
+    - libapache2-mod-php
 
 ###############################################################################
 
