@@ -1,22 +1,48 @@
-Role Name
-=========
+ansible-role-simplesamlphp-idp
+==============================
 
-A brief description of the role goes here.
+This role installs and configures a simple identity provider (IdP) which can
+be used for testing applications that make use of SAML authentication. A
+service provider (SP) is also installed for convenience (can be used to ensure
+that the IdP is working as expected).
 
-Requirements
-------------
+Usage
+-----
+In order to use the role, add the following to the `requirements.yml` located
+inside the ansible folder (create the `requirements.yml` file if it does not
+exist):
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+```
+- src: git+https://github.com/magenta-aps/ansible-role-simplesamlphp-idp.git
+  version: master
+  name: simplesamlphp
+```
+
+Installing the role
+-------------------
+Do the following to install the role in your project:
+
+```
+$ cd /path/to/ansible-project
+$ ansible-galaxy install -r requirements.yml
+```
+
+This will install the role in your roles folder.
 
 Role Variables
 --------------
+You need to specify the following variables in the appropriate `host_vars`-file:
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```
+idp_hostname: idp.example.org
+sp_hostname: idp.example.org
+```
 
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+NOTE: currently, the role installes a couple of pre-configured self-signed SSL
+certificates corresponding to the hostnames `idp.example.org` and
+`sp.example.org`, respectively. *TODO:* add tasks to create and install
+self-signed certificates based on the `idp_hostname` and `sp_hostname`
+variables.
 
 Example Playbook
 ----------------
@@ -25,14 +51,10 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - simplesamlphp
 
-License
--------
-
-BSD
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+https://github.com/andreaskring
