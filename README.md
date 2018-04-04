@@ -4,7 +4,10 @@ ansible-role-simplesamlphp-idp
 This role installs and configures a simple identity provider (IdP) which can
 be used for testing applications that make use of SAML authentication. A
 service provider (SP) is also installed for convenience (can be used to ensure
-that the IdP is working as expected).
+that the IdP is working as expected). To make it work, all you need to do
+is to exchange metadata between this IdP and the remote SP that you wish to
+test. The IdP installed is a [simpleSAMLphp](https://simplesamlphp.org/) IdP
+-- see the link for more info on how to exchange metadata.
 
 Usage
 -----
