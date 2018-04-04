@@ -1,0 +1,40 @@
+<?php
+/**
+ * SAML 2.0 remote IdP metadata for SimpleSAMLphp.
+ *
+ * Remember to remove the IdPs you don't use from this file.
+ *
+ * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-remote
+ */
+
+$metadata['https://{{ idp_hostname }}/simplesaml/saml2/idp/metadata.php'] = array (
+  'metadata-set' => 'saml20-idp-remote',
+  'entityid' => 'https://{{ idp_hostname }}/simplesaml/saml2/idp/metadata.php',
+  'SingleSignOnService' =>
+  array (
+    0 =>
+    array (
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+      'Location' => 'https://{{ idp_hostname }}/simplesaml/saml2/idp/SSOService.php',
+    ),
+  ),
+  'SingleLogoutService' =>
+  array (
+    0 =>
+    array (
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+      'Location' => 'https://{{ idp_hostname }}/simplesaml/saml2/idp/SingleLogoutService.php',
+    ),
+  ),
+  'certData' => 'MIIDYTCCAkkCCQCDOnszs/09TTANBgkqhkiG9w0BAQsFADBwMQswCQYDVQQGEwJESzEUMBIGA1UECAwLTWlkdGp5bGxhbmQxDzANBgNVBAcMBkFhcmh1czEUMBIGA1UECgwLTWFnZW50YSBBcFMxDzANBgNVBAsMBkFhcmh1czETMBEGA1UEAwwKTWFnZW50YSBDQTAeFw0xODAzMTUxMDI4MDVaFw0yMTAzMTQxMDI4MDVaMHUxCzAJBgNVBAYTAkRLMRQwEgYDVQQIDAtNaWR0bHlsbGFuZDEPMA0GA1UEBwwGQWFyaHVzMRQwEgYDVQQKDAtNYWdlbnRhIEFwUzEPMA0GA1UECwwGQWFyaHVzMRgwFgYDVQQDDA9pZHAuZXhhbXBsZS5vcmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC2x/T6gX+NBkOc61Di4ITRoUEEgcAFN92Op04JxZk7a4z5tjOXX9F+tq8WqtUU3fAPiRBX6Xr2oaIYY1CYXrr2nx6uJ3CIVirDgE16ke2SJgF1juU2/frVWjjXuhptrMUIVrxW9hf1XnaXBMBXRpDNSMFNAWMO0nPAbpOMTWfS7p9N2J94o0lYBpuie/C/aaYyOj/ABFmWGJbdCiK67KExbD76gjn5Lfbc6hmNaRXba6uSLup6t3uZD6pxL4EPyeEQjXI/5YV0IHEzV9iV3n8p0c3liITOAR1ThtfjRrPQ5Y8jcFncNI5EWdwwkymksLXZWvyoOZOodY8XOsZD/c85AgMBAAEwDQYJKoZIhvcNAQELBQADggEBAL3cmcc5U2RcIkdidTOycUex9zZ1ZGRA7z06FtzcRNtfehiYHJoQPIN9iZ18kKOW81Cp3J4DZ+c+73z02cJt3Brt1GHbbdjMLvDalI0vaYvdGpn/fVJtbMmsmx0K8s480pdhQR5prW1lYPmxn+x5O3IFp//mstn77pnyYsE3G9SZ+m9gNjresFr64jMI7Kq1vr+YWO5hULe91Dgr8+0/ZZZOucP5XqDKSsMWbJeCY+O+N/nISnaoZeAd5Z4W6ByZoQY+sqfegtILt3jEJaTNOSgWGBvtAywyrp5S/0ACqRg8h1x6HT8IdMIh5warruM8LdpQ50hbAYCeC4oDTYW6Hbs=',
+  'NameIDFormat' => 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
+  'contacts' =>
+  array (
+    0 =>
+    array (
+      'emailAddress' => 'admin@example.org',
+      'contactType' => 'technical',
+      'givenName' => 'Administrator',
+    ),
+  ),
+);

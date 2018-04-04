@@ -1,0 +1,174 @@
+---
+# tasks file for simplesamlphp
+
+############## Install Apache, PHP and packages required by PHP ###############
+
+- name: Install Apache2, PHP, PHP extensions and other necessary packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - apache2
+    - php
+    - php-date
+    - libmcrypt4
+    - php-mcrypt
+    - libmcrypt-dev
+    - mcrypt
+    - php-ldap
+    - php-radius
+    - php-mysql
+    - php-sqlite3
+    - php-json
+    - php-mbstring
+    - php-xml
+    - php-curl
+    - composer
+
+###############################################################################
+
+
+########################## Install SimpleSAMLphp ##############################
+
+- name: Check if SimpleSAMLphp is already installed
+  stat:
+    path: /var/simplesamlphp
+  register: simplesamlphp
+
+- name: Clone SimpleSAMLphp from GitHub
+  git:
+    repo: "https://github.com/simplesamlphp/simplesamlphp.git"
+    dest: /var/simplesamlphp
+    version: v1.15.4
+  when: simplesamlphp.stat.exists == False
+
+- name: Copy configuration template to config folder
+  shell: "cp -a /var/simplesamlphp/config-templates/* /var/simplesamlphp/config"
+
+- name: Copy configuration template to config folder
+  shell: "cp -a /var/simplesamlphp/metadata-templates/* /var/simplesamlphp/metadata"
+
+- name: Install using composer (this can be quite time consuming)
+  composer:
+    command: install
+    working_dir: /var/simplesamlphp
+
+###############################################################################
+
+
+############################ Set up certificates ##############################
+
+- name: Create the cert folder
+  file:
+    path: /var/simplesamlphp/cert
+    state: directory
+
+- name: Copy IdP and SP certificate files to server
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: 'rootCA.crt', dest: '/usr/local/share/ca-certificates/rootCA.crt' }
+    - { src: 'idp.crt', dest: '/var/simplesamlphp/cert/idp.crt' }
+    - { src: 'idp.key', dest: '/var/simplesamlphp/cert/idp.key' }
+    - { src: 'idp.crt', dest: '/etc/ssl/certs/idp.crt' }
+    - { src: 'idp.key', dest: '/etc/ssl/private/idp.key' }
+    - { src: 'sp.crt', dest: '/var/simplesamlphp/cert/sp.crt' }
+    - { src: 'sp.key', dest: '/var/simplesamlphp/cert/sp.key' }
+    - { src: 'sp.crt', dest: '/etc/ssl/certs/sp.crt' }
+    - { src: 'sp.key', dest: '/etc/ssl/private/sp.key' }
+
+- name: Update CA certificates
+  command: /usr/sbin/update-ca-certificates
+
+- name: Make sure PHP accepts the rootCA
+  lineinfile:
+    path: /etc/php/7.0/apache2/php.ini
+    regexp: 'openssl\.cafile='
+    line: 'openssl.cafile=/etc/ssl/ca-certificates.crt'
+
+###############################################################################
+
+
+####### Set up Apache configuration files for IdP and SimpleSAMLphp SP ########
+
+- name: Copy Apache configuration to server
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/apache2/sites-available/{{ item }}"
+  with_items:
+    - idp-ssl.conf
+    - sp-ssl.conf
+
+- name: Enable Apache virtual host
+  file:
+    src: "/etc/apache2/sites-available/{{ item }}"
+    dest: "/etc/apache2/sites-enabled/{{ item }}"
+    state: link
+  with_items:
+    - idp-ssl.conf
+    - sp-ssl.conf
+  notify: restart apache
+
+###############################################################################
+
+
+############ Basic SimpleSAMLphp configuration and authsources ################
+
+- name: Setup the config.php file
+  lineinfile:
+    path: /var/simplesamlphp/config/config.php
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: "'technicalcontact_email' =>", line: "    'technicalcontact_email' => 'admin@example.org',"}
+    - { regexp: "'auth.adminpassword' =>", line: "    'auth.adminpassword' => 'admin',"}
+    - { regexp: "'timezone' =>", line: "    'timezone' => 'Europe/Copenhagen'," }
+    - { regexp: "'secretsalt' =>", line: "    'secretsalt' => 'dummy_salt',"}
+    - { regexp: "'enable.saml20-idp' =>", line: "    'enable.saml20-idp' => true," }
+
+- name: Enable exampleauth module
+  file:
+    path: /var/simplesamlphp/modules/exampleauth/enable
+    state: touch
+
+- name: Copy authsources.php to server
+  template:
+    src: authsources.php.j2
+    dest: /var/simplesamlphp/config/authsources.php
+
+- name: Set location of IdP certificate in saml20-idp-hosted.php
+  lineinfile:
+    path: /var/simplesamlphp/metadata/saml20-idp-hosted.php
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: "'privatekey' =>", line: "        'privatekey' => 'idp.key',"}
+    - { regexp: "'certificate' =>", line: "        'certificate' => 'idp.crt',"}
+
+- name: Use the URI NameFormat
+  blockinfile:
+    path: /var/simplesamlphp/metadata/saml20-idp-hosted.php
+    block: |
+      'attributes.NameFormat' => 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri',
+      'authproc' => array(
+          // Convert LDAP names to oids.
+          100 => array('class' => 'core:AttributeMap', 'name2oid'),
+      ),
+    marker: "/* {mark} ANSIBLE MANAGED BLOCK */"
+    insertafter: "'auth' => 'example-userpass',"
+
+###############################################################################
+
+
+##### Exchange metadata (PHP format) for SimpleSAMLphp's own use (testing) ####
+
+- name: Exchange metadata for SimpleSAMLphp's own use
+  template:
+    src: "saml20-{{ item }}-remote.php.j2"
+    dest: "/var/simplesamlphp/metadata/saml20-{{ item }}-remote.php"
+  with_items:
+    - idp
+    - sp
+
+###############################################################################

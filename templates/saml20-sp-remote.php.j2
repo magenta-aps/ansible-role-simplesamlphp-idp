@@ -1,0 +1,135 @@
+<?php
+$metadata['https://{{ sp_hostname }}'] = array (
+  'SingleLogoutService' =>
+  array (
+    0 =>
+    array (
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+      'Location' => 'https://{{ sp_hostname }}/simplesaml/module.php/saml/sp/saml2-logout.php/default-sp',
+    ),
+  ),
+  'AssertionConsumerService' =>
+  array (
+    0 =>
+    array (
+      'index' => 0,
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
+      'Location' => 'https://{{ sp_hostname }}/simplesaml/module.php/saml/sp/saml2-acs.php/default-sp',
+    ),
+    1 =>
+    array (
+      'index' => 1,
+      'Binding' => 'urn:oasis:names:tc:SAML:1.0:profiles:browser-post',
+      'Location' => 'https://{{ sp_hostname }}/simplesaml/module.php/saml/sp/saml1-acs.php/default-sp',
+    ),
+    2 =>
+    array (
+      'index' => 2,
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact',
+      'Location' => 'https://{{ sp_hostname }}/simplesaml/module.php/saml/sp/saml2-acs.php/default-sp',
+    ),
+    3 =>
+    array (
+      'index' => 3,
+      'Binding' => 'urn:oasis:names:tc:SAML:1.0:profiles:artifact-01',
+      'Location' => 'https://{{ sp_hostname }}/simplesaml/module.php/saml/sp/saml1-acs.php/default-sp/artifact',
+    ),
+  ),
+  'contacts' =>
+  array (
+    0 =>
+    array (
+      'emailAddress' => 'admin@example.org',
+      'contactType' => 'technical',
+      'givenName' => 'Administrator',
+    ),
+  ),
+  'certData' => 'MIIDYDCCAkgCCQDqvzoPwRIplDANBgkqhkiG9w0BAQsFADBwMQswCQYDVQQGEwJESzEUMBIGA1UECAwLTWlkdGp5bGxhbmQxDzANBgNVBAcMBkFhcmh1czEUMBIGA1UECgwLTWFnZW50YSBBcFMxDzANBgNVBAsMBkFhcmh1czETMBEGA1UEAwwKTWFnZW50YSBDQTAeFw0xODAzMTkxMzAyNTdaFw0xOTA4MDExMzAyNTdaMHQxCzAJBgNVBAYTAkRLMRQwEgYDVQQIDAtNaWR0anlsbGFuZDEPMA0GA1UEBwwGQWFyaHVzMRQwEgYDVQQKDAtNQWdlbnRhIEFwUzEPMA0GA1UECwwGQWFyaHVzMRcwFQYDVQQDDA5zcC5leGFtcGxlLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANQ6qf05aw2RWs6oH3CEjCEnNEfnj37pTiCTU9otGV0qor/ENv29/8qA3hwbvYdqFt/ChN6xDHuEiHybQT9EdZlybOCyqyj6nXNjAMqvxo6frhGJ9hdkIgMEibCq9EXwP32aVeigM1r/MnIdXZSOWSKAb1XQjszUW+MQ5rus4CxxxeD/7EJYQ+iaWCrmilqIItqVQWc7ICozGk1ADxsZ5Id14iNj6qlhVmIjGnZOVlCIXPOCtttfJZ0igDsqSA0PHNPxu0kxTNa7f4c2OdETsvmsNk2DROFcBOHu5H8yRtz94HV9Rm+gzc98GH1zzxSKZcTzzOQ9dfX8K94gKwF/DkECAwEAATANBgkqhkiG9w0BAQsFAAOCAQEArv0tzuMiRAzZKb9hSSXwvnHnNVBMObxe9Yg0jeP8zuVzLzMMMDf+2466stdUthcq8QIt7jNXcFMwtaO4xW2bzu+XukLrYtrAYa8p0k/1Mxpaf0FaMrCKBmzwY6Du/KX/dDi1GFKIv4HoG3qelc+SHp1cWcxLMrsvrsjLqC0X2/3bpHS5yCSNYw0FGa4hFYulQtSmEHi7WicQ8Y3PMKDMnIuyNqjoQyMkdajEJrJo30JdbQY1todXEn7Ny7dhXiSCABxnbqiz9Ia1LlT6tubFsXfu8hYgFUwq8renGzODmZbVuli6ypdpzoDW5fTlbFNQ3j2UUFYn3DnpQXi0X0lBzw==',
+);
+
+$metadata['https://dh.example.org/saml/metadata'] = array (
+  'entityid' => 'https://dh.example.org/saml/metadata',
+  'description' =>
+  array (
+    'Example' => 'Organization',
+  ),
+  'OrganizationName' =>
+  array (
+    'Example' => 'Organization',
+  ),
+  'name' =>
+  array (
+    'invalid' => '',
+  ),
+  'OrganizationDisplayName' =>
+  array (
+    'invalid' => '',
+  ),
+  'url' =>
+  array (
+    'en' => 'dh.example.org',
+  ),
+  'OrganizationURL' =>
+  array (
+    'en' => 'dh.example.org',
+  ),
+  'contacts' =>
+  array (
+  ),
+  'metadata-set' => 'saml20-sp-remote',
+  'AssertionConsumerService' =>
+  array (
+    0 =>
+    array (
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
+      'Location' => 'https://dh.example.org/saml/postResponse',
+      'index' => 0,
+      'isDefault' => true,
+    ),
+    1 =>
+    array (
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact',
+      'Location' => 'https://dh.example.org/saml/artifactResponse',
+      'index' => 1,
+    ),
+    2 =>
+    array (
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:PAOS',
+      'Location' => 'https://dh.example.org/saml/paosResponse',
+      'index' => 2,
+    ),
+  ),
+  'SingleLogoutService' =>
+  array (
+    0 =>
+    array (
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:SOAP',
+      'Location' => 'https://dh.example.org/saml/logout',
+    ),
+    1 =>
+    array (
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+      'Location' => 'https://dh.example.org/saml/logout',
+    ),
+  ),
+  'NameIDFormat' => 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
+  'keys' =>
+  array (
+    0 =>
+    array (
+      'encryption' => false,
+      'signing' => true,
+      'type' => 'X509Certificate',
+      'X509Certificate' => 'MIIDYDCCAkgCCQDqvzoPwRIplDANBgkqhkiG9w0BAQsFADBwMQswCQYDVQQGEwJESzEUMBIGA1UECAwLTWlkdGp5bGxhbmQxDzANBgNVBAcMBkFhcmh1czEUMBIGA1UECgwLTWFnZW50YSBBcFMxDzANBgNVBAsMBkFhcmh1czETMBEGA1UEAwwKTWFnZW50YSBDQTAeFw0xODAzMTkxMzAyNTdaFw0xOTA4MDExMzAyNTdaMHQxCzAJBgNVBAYTAkRLMRQwEgYDVQQIDAtNaWR0anlsbGFuZDEPMA0GA1UEBwwGQWFyaHVzMRQwEgYDVQQKDAtNQWdlbnRhIEFwUzEPMA0GA1UECwwGQWFyaHVzMRcwFQYDVQQDDA5zcC5leGFtcGxlLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANQ6qf05aw2RWs6oH3CEjCEnNEfnj37pTiCTU9otGV0qor/ENv29/8qA3hwbvYdqFt/ChN6xDHuEiHybQT9EdZlybOCyqyj6nXNjAMqvxo6frhGJ9hdkIgMEibCq9EXwP32aVeigM1r/MnIdXZSOWSKAb1XQjszUW+MQ5rus4CxxxeD/7EJYQ+iaWCrmilqIItqVQWc7ICozGk1ADxsZ5Id14iNj6qlhVmIjGnZOVlCIXPOCtttfJZ0igDsqSA0PHNPxu0kxTNa7f4c2OdETsvmsNk2DROFcBOHu5H8yRtz94HV9Rm+gzc98GH1zzxSKZcTzzOQ9dfX8K94gKwF/DkECAwEAATANBgkqhkiG9w0BAQsFAAOCAQEArv0tzuMiRAzZKb9hSSXwvnHnNVBMObxe9Yg0jeP8zuVzLzMMMDf+2466stdUthcq8QIt7jNXcFMwtaO4xW2bzu+XukLrYtrAYa8p0k/1Mxpaf0FaMrCKBmzwY6Du/KX/dDi1GFKIv4HoG3qelc+SHp1cWcxLMrsvrsjLqC0X2/3bpHS5yCSNYw0FGa4hFYulQtSmEHi7WicQ8Y3PMKDMnIuyNqjoQyMkdajEJrJo30JdbQY1todXEn7Ny7dhXiSCABxnbqiz9Ia1LlT6tubFsXfu8hYgFUwq8renGzODmZbVuli6ypdpzoDW5fTlbFNQ3j2UUFYn3DnpQXi0X0lBzw==',
+    ),
+    1 =>
+    array (
+      'encryption' => true,
+      'signing' => false,
+      'type' => 'X509Certificate',
+      'X509Certificate' => 'MIIDYDCCAkgCCQDqvzoPwRIplDANBgkqhkiG9w0BAQsFADBwMQswCQYDVQQGEwJESzEUMBIGA1UECAwLTWlkdGp5bGxhbmQxDzANBgNVBAcMBkFhcmh1czEUMBIGA1UECgwLTWFnZW50YSBBcFMxDzANBgNVBAsMBkFhcmh1czETMBEGA1UEAwwKTWFnZW50YSBDQTAeFw0xODAzMTkxMzAyNTdaFw0xOTA4MDExMzAyNTdaMHQxCzAJBgNVBAYTAkRLMRQwEgYDVQQIDAtNaWR0anlsbGFuZDEPMA0GA1UEBwwGQWFyaHVzMRQwEgYDVQQKDAtNQWdlbnRhIEFwUzEPMA0GA1UECwwGQWFyaHVzMRcwFQYDVQQDDA5zcC5leGFtcGxlLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANQ6qf05aw2RWs6oH3CEjCEnNEfnj37pTiCTU9otGV0qor/ENv29/8qA3hwbvYdqFt/ChN6xDHuEiHybQT9EdZlybOCyqyj6nXNjAMqvxo6frhGJ9hdkIgMEibCq9EXwP32aVeigM1r/MnIdXZSOWSKAb1XQjszUW+MQ5rus4CxxxeD/7EJYQ+iaWCrmilqIItqVQWc7ICozGk1ADxsZ5Id14iNj6qlhVmIjGnZOVlCIXPOCtttfJZ0igDsqSA0PHNPxu0kxTNa7f4c2OdETsvmsNk2DROFcBOHu5H8yRtz94HV9Rm+gzc98GH1zzxSKZcTzzOQ9dfX8K94gKwF/DkECAwEAATANBgkqhkiG9w0BAQsFAAOCAQEArv0tzuMiRAzZKb9hSSXwvnHnNVBMObxe9Yg0jeP8zuVzLzMMMDf+2466stdUthcq8QIt7jNXcFMwtaO4xW2bzu+XukLrYtrAYa8p0k/1Mxpaf0FaMrCKBmzwY6Du/KX/dDi1GFKIv4HoG3qelc+SHp1cWcxLMrsvrsjLqC0X2/3bpHS5yCSNYw0FGa4hFYulQtSmEHi7WicQ8Y3PMKDMnIuyNqjoQyMkdajEJrJo30JdbQY1todXEn7Ny7dhXiSCABxnbqiz9Ia1LlT6tubFsXfu8hYgFUwq8renGzODmZbVuli6ypdpzoDW5fTlbFNQ3j2UUFYn3DnpQXi0X0lBzw==',
+    ),
+  ),
+  'validate.authnrequest' => true,
+  'saml20.sign.assertion' => true,
+);
