@@ -29,6 +29,19 @@
 ###############################################################################
 
 
+########################### Enable Apache modules #############################
+
+- name: Enable Apache modules
+  apache2_module:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ssl
+  notify: restart apache2
+
+###############################################################################
+
+
 ########################## Install SimpleSAMLphp ##############################
 
 - name: Check if SimpleSAMLphp is already installed
